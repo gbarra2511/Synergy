@@ -11,3 +11,7 @@ Acreditamos que as fontes de conhecimento práticas são escassas, e quando essa
 
 Portanto, miramos em resolver tal problemática e queremos que nossa plataforma possa demonstrar ambos os aspectos do usuário. A partir disso, serão criados rankings de pontuações que podem ser utilizados para as empresas entenderem aqueles que se destacam nas resoluções dos desafios e que estão ativos, podendo atuar como filtro para contratações. E, aliado a isso, nossos usuários poderão obter conexões, visibilidade e conhecimento prático de forma gratuita, podendo assim trilhar suas carreiras de forma à unificar soft-skills e hard-skills em um só local.
 ***
+
+# Link video front end
+
+https://drive.google.com/file/d/13syOtbDgVgcv4mNdvtRZV6_H46K3n32t/view
