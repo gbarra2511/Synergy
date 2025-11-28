@@ -1,1 +1,13 @@
-# Synergy
+# Projeto - Synergy - Uma Rede Social de Desenvolvimento Pessoal e de Oportunidades
+***
+## Integrantes
+Bernardo Guimarães, Davi Ferreira ,Gustavo Felizardo, Pedro Lourenço, Thiago Aguilar
+***
+## Descrição
+O projeto consiste na união de ideias do LinkedIn e Leetcode (soft-skill e hard-skill respectivamente), promovendo a fusão de um feed interativo com conexões entre usuários e entre usuário-empresa, local no qual as soft-skills são demonstradas. A outra parte da plataforma consiste em um sistema complexo de Cases de diferentes níveis e diferentes tópicos, nao só programação como o leetcode, na qual os usuários poderão aprimorar suas habilidades e ganhar visibilidade na plataforma mediante as empresas ali presentes. Tais empresas poderão publicar cases próprios como forma de incentivar os usuários e os preparar para realizar processos seletivos. Essas possuem rankings próprios, que aliado com o ranking geral e as soft-skills, poderão fornecer informações suficientes para que usuários possam ser considerados com potencial alto, e de tal forma poderão obter seu contato para caso queiram sugeri-lô a aplicar para uma vaga.
+***
+## Motivação para escolha
+Acreditamos que as fontes de conhecimento práticas são escassas, e quando essas existem, não existe cofluência com redes sociais, de tal forma que esses conhecimentos práticos ficam obscuros diante da sociedade. Portanto, fontes de conhecimentos práticas para todos os temas são imprescindíveis, queremos unir inúmeros tópicos, para que usuários possam explorar diversos tópicos e que possam ter um aprendizado recompensado e visível diante da sociedade e do ramo corporativo. Além disso, no mercado de trabalho atual, muitas pessoas não possuem ambas soft-skills e hard-skills desenvolvidas, por isso processos seletivos acabam sendo injustos com certa parcela, pois muitas vezes um indivíduo que tem desenvoltura social, resiliência, comunicação e aspectos de liderança acaba sendo substituido por alguém que estudou muito porém não tem essas características, ou vice-versa. 
+
+Portanto, miramos em resolver tal problemática e queremos que nossa plataforma possa demonstrar ambos os aspectos do usuário. A partir disso, serão criados rankings de pontuações que podem ser utilizados para as empresas entenderem aqueles que se destacam nas resoluções dos desafios e que estão ativos, podendo atuar como filtro para contratações. E, aliado a isso, nossos usuários poderão obter conexões, visibilidade e conhecimento prático de forma gratuita, podendo assim trilhar suas carreiras de forma à unificar soft-skills e hard-skills em um só local.
+***

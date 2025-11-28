@@ -1,0 +1,25 @@
+{
+  "name": "synergy-frontend",
+  "version": "1.0.0",
+  "description": "Frontend completo e responsivo para a plataforma Synergy",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx http-server -p 8000 -o",
+    "dev": "npx live-server --port=8000 --open=index.html"
+  },
+  "keywords": [
+    "synergy",
+    "social-network",
+    "education",
+    "cases",
+    "ranking"
+  ],
+  "authors": [
+    "Bernardo Guimarães",
+    "Davi Ferreira",
+    "Gustavo Felizardo",
+    "Pedro Lourenço",
+    "Thiago Aguilar"
+  ],
+  "license": "MIT"
+}

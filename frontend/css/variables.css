@@ -1,0 +1,95 @@
+/* Synergy - Variáveis CSS Globais */
+
+:root {
+  /* Cores Primárias */
+  --primary-color: #054137;
+  --primary-light: #0a6a59;
+  --primary-dark: #032a23;
+
+  /* Cores de Fundo */
+  --bg-color: #fefffe;
+  --bg-secondary: #f5f5f5;
+  --bg-card: #ffffff;
+
+  /* Cores de Texto */
+  --text-primary: #000000;
+  --text-secondary: #666666;
+  --text-light: #999999;
+  --text-white: #ffffff;
+
+  /* Cores de Acento */
+  --accent-success: #28a745;
+  --accent-warning: #ffc107;
+  --accent-error: #dc3545;
+  --accent-info: #17a2b8;
+
+  /* Bordas */
+  --border-color: #e0e0e0;
+  --border-radius-sm: 4px;
+  --border-radius-md: 8px;
+  --border-radius-lg: 12px;
+  --border-radius-xl: 16px;
+
+  /* Sombras */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.15);
+  --shadow-xl: 0 20px 40px rgba(0, 0, 0, 0.2);
+
+  /* Espaçamento */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+  --spacing-2xl: 48px;
+  --spacing-3xl: 64px;
+
+  /* Tipografia */
+  --font-family: -apple-system, BlinkMacSystemFont, 'SF Pro', 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  --font-size-xs: 12px;
+  --font-size-sm: 14px;
+  --font-size-md: 16px;
+  --font-size-lg: 18px;
+  --font-size-xl: 20px;
+  --font-size-2xl: 24px;
+  --font-size-3xl: 32px;
+  --font-size-4xl: 40px;
+
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* Transições */
+  --transition-fast: 150ms ease;
+  --transition-normal: 250ms ease;
+  --transition-slow: 350ms ease;
+
+  /* Z-index */
+  --z-dropdown: 1000;
+  --z-sticky: 1020;
+  --z-fixed: 1030;
+  --z-modal-backdrop: 1040;
+  --z-modal: 1050;
+  --z-popover: 1060;
+  --z-tooltip: 1070;
+
+  /* Larguras */
+  --container-max-width: 1440px;
+  --sidebar-width: 250px;
+  --content-max-width: 800px;
+}
+
+/* Modo Escuro (opcional para futuro) */
+@media (prefers-color-scheme: dark) {
+  :root.dark-mode {
+    --bg-color: #1a1a1a;
+    --bg-secondary: #242424;
+    --bg-card: #2d2d2d;
+    --text-primary: #ffffff;
+    --text-secondary: #b3b3b3;
+    --text-light: #808080;
+    --border-color: #404040;
+  }
+}

@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Synergy - Dashboard</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/utilities.css">
+
+    <style>
+        .app-container {
+            display: flex;
+            min-height: 100vh;
+            background-color: var(--bg-color);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: var(--sidebar-width);
+            background-color: var(--bg-card);
+            border-right: 1px solid var(--border-color);
+            padding: var(--spacing-lg);
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            z-index: var(--z-fixed);
+            transition: transform var(--transition-normal);
+        }
+
+        .sidebar-header {
+            margin-bottom: var(--spacing-2xl);
+            padding-bottom: var(--spacing-lg);
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .app-logo {
+            font-size: var(--font-size-2xl);
+            font-weight: var(--font-weight-bold);
+            color: var(--primary-color);
+            text-align: center;
+        }
+
+        .nav-menu {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-sm);
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+            padding: var(--spacing-md);
+            border-radius: var(--border-radius-md);
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            font-weight: var(--font-weight-medium);
+            color: var(--text-secondary);
+        }
+
+        .nav-item:hover {
+            background-color: var(--bg-secondary);
+            color: var(--primary-color);
+        }
+
+        .nav-item.active {
+            background-color: var(--primary-color);
+            color: var(--text-white);
+        }
+
+        .nav-icon {
+            font-size: var(--font-size-xl);
+        }
+
+        .sidebar-footer {
+            margin-top: auto;
+            padding-top: var(--spacing-lg);
+            border-top: 1px solid var(--border-color);
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            margin-left: var(--sidebar-width);
+            padding: var(--spacing-lg);
+        }
+
+        .top-bar {
+            background-color: var(--bg-card);
+            padding: var(--spacing-md) var(--spacing-lg);
+            border-radius: var(--border-radius-lg);
+            margin-bottom: var(--spacing-lg);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .search-bar {
+            flex: 1;
+            max-width: 500px;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: var(--spacing-md) var(--spacing-md) var(--spacing-md) 40px;
+            background-color: var(--bg-secondary);
+            border-radius: var(--border-radius-md);
+            border: 2px solid transparent;
+            transition: all var(--transition-fast);
+        }
+
+        .search-input:focus {
+            border-color: var(--primary-color);
+            background-color: var(--bg-card);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: var(--spacing-md);
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+        }
+
+        .top-bar-actions {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+        }
+
+        .notification-btn {
+            position: relative;
+        }
+
+        .notification-badge {
+            position: absolute;
+            top: -4px;
+            right: -4px;
+            width: 18px;
+            height: 18px;
+            background-color: var(--accent-error);
+            color: var(--text-white);
+            border-radius: 50%;
+            font-size: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: var(--font-weight-bold);
+        }
+
+        .user-profile-btn {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            padding: var(--spacing-sm) var(--spacing-md);
+            border-radius: var(--border-radius-md);
+            cursor: pointer;
+            transition: background-color var(--transition-fast);
+        }
+
+        .user-profile-btn:hover {
+            background-color: var(--bg-secondary);
+        }
+
+        /* Content Views */
+        .content-view {
+            display: none;
+        }
+
+        .content-view.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Feed View */
+        .feed-layout {
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: var(--spacing-lg);
+        }
+
+        .feed-main {
+            max-width: var(--content-max-width);
+        }
+
+        .create-post {
+            background-color: var(--bg-card);
+            padding: var(--spacing-lg);
+            border-radius: var(--border-radius-lg);
+            margin-bottom: var(--spacing-lg);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .create-post-header {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .create-post-input {
+            flex: 1;
+            padding: var(--spacing-md);
+            background-color: var(--bg-secondary);
+            border-radius: var(--border-radius-lg);
+            cursor: pointer;
+            transition: background-color var(--transition-fast);
+        }
+
+        .create-post-input:hover {
+            background-color: var(--border-color);
+        }
+
+        .post-card {
+            background-color: var(--bg-card);
+            padding: var(--spacing-lg);
+            border-radius: var(--border-radius-lg);
+            margin-bottom: var(--spacing-lg);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .post-header {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .post-author-info {
+            flex: 1;
+        }
+
+        .post-author-name {
+            font-weight: var(--font-weight-semibold);
+            color: var(--text-primary);
+        }
+
+        .post-time {
+            font-size: var(--font-size-sm);
+            color: var(--text-secondary);
+        }
+
+        .post-content {
+            margin-bottom: var(--spacing-md);
+            line-height: 1.6;
+        }
+
+        .post-actions {
+            display: flex;
+            gap: var(--spacing-lg);
+            padding-top: var(--spacing-md);
+            border-top: 1px solid var(--border-color);
+        }
+
+        .post-action-btn {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            color: var(--text-secondary);
+            font-size: var(--font-size-sm);
+            padding: var(--spacing-sm) var(--spacing-md);
+            border-radius: var(--border-radius-sm);
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+
+        .post-action-btn:hover {
+            background-color: var(--bg-secondary);
+            color: var(--primary-color);
+        }
+
+        .post-action-btn.liked {
+            color: var(--accent-error);
+        }
+
+        /* Sidebar Content */
+        .sidebar-content {
+            background-color: var(--bg-card);
+            padding: var(--spacing-lg);
+            border-radius: var(--border-radius-lg);
+            margin-bottom: var(--spacing-lg);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .sidebar-title {
+            font-size: var(--font-size-lg);
+            font-weight: var(--font-weight-bold);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .suggested-user {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+            padding: var(--spacing-sm) 0;
+        }
+
+        .suggested-user-info {
+            flex: 1;
+        }
+
+        .suggested-user-name {
+            font-weight: var(--font-weight-semibold);
+            font-size: var(--font-size-sm);
+        }
+
+        .suggested-user-title {
+            font-size: var(--font-size-xs);
+            color: var(--text-secondary);
+        }
+
+        .follow-btn {
+            padding: var(--spacing-xs) var(--spacing-md);
+            background-color: var(--primary-color);
+            color: var(--text-white);
+            border-radius: var(--border-radius-md);
+            font-size: var(--font-size-sm);
+            font-weight: var(--font-weight-semibold);
+        }
+
+        .follow-btn:hover {
+            background-color: var(--primary-dark);
+        }
+
+        /* Cases View */
+        .cases-header {
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .cases-filters {
+            display: flex;
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-lg);
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: var(--spacing-sm) var(--spacing-lg);
+            background-color: var(--bg-card);
+            border: 2px solid var(--border-color);
+            border-radius: var(--border-radius-md);
+            font-weight: var(--font-weight-medium);
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            border-color: var(--primary-color);
+            background-color: var(--primary-color);
+            color: var(--text-white);
+        }
+
+        .cases-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: var(--spacing-lg);
+        }
+
+        .case-card {
+            background-color: var(--bg-card);
+            padding: var(--spacing-lg);
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-sm);
+            border-left: 4px solid var(--primary-color);
+            cursor: pointer;
+            transition: all var(--transition-normal);
+        }
+
+        .case-card:hover {
+            box-shadow: var(--shadow-md);
+            transform: translateY(-2px);
+        }
+
+        .case-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .case-title {
+            font-size: var(--font-size-lg);
+            font-weight: var(--font-weight-bold);
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .case-company {
+            font-size: var(--font-size-sm);
+            color: var(--text-secondary);
+        }
+
+        .case-points {
+            background-color: var(--primary-color);
+            color: var(--text-white);
+            padding: var(--spacing-xs) var(--spacing-md);
+            border-radius: var(--border-radius-md);
+            font-weight: var(--font-weight-bold);
+            font-size: var(--font-size-sm);
+        }
+
+        .case-description {
+            color: var(--text-secondary);
+            margin-bottom: var(--spacing-md);
+            line-height: 1.5;
+        }
+
+        .case-tags {
+            display: flex;
+            gap: var(--spacing-sm);
+            flex-wrap: wrap;
+        }
+
+        .case-tag {
+            background-color: var(--bg-secondary);
+            padding: var(--spacing-xs) var(--spacing-sm);
+            border-radius: var(--border-radius-sm);
+            font-size: var(--font-size-xs);
+            color: var(--text-secondary);
+        }
+
+        /* Profile View */
+        .profile-header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%);
+            padding: var(--spacing-2xl);
+            border-radius: var(--border-radius-lg);
+            margin-bottom: var(--spacing-lg);
+            color: var(--text-white);
+        }
+
+        .profile-info {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xl);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .profile-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--spacing-lg);
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: var(--font-size-2xl);
+            font-weight: var(--font-weight-bold);
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .stat-label {
+            font-size: var(--font-size-sm);
+            opacity: 0.9;
+        }
+
+        /* Ranking View */
+        .ranking-table {
+            background-color: var(--bg-card);
+            border-radius: var(--border-radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .ranking-row {
+            display: grid;
+            grid-template-columns: 80px 1fr 120px 120px;
+            padding: var(--spacing-md) var(--spacing-lg);
+            border-bottom: 1px solid var(--border-color);
+            align-items: center;
+            transition: background-color var(--transition-fast);
+        }
+
+        .ranking-row:hover {
+            background-color: var(--bg-secondary);
+        }
+
+        .ranking-row.header {
+            background-color: var(--primary-color);
+            color: var(--text-white);
+            font-weight: var(--font-weight-bold);
+        }
+
+        .ranking-row.highlight {
+            background-color: rgba(5, 65, 55, 0.05);
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .rank-position {
+            font-size: var(--font-size-xl);
+            font-weight: var(--font-weight-bold);
+            color: var(--primary-color);
+            text-align: center;
+        }
+
+        .ranking-row.header .rank-position {
+            color: var(--text-white);
+        }
+
+        .rank-user {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+        }
+
+        /* Mobile Styles */
+        @media (max-width: 1024px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+
+            .sidebar.mobile-open {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .feed-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .feed-sidebar {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .profile-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .ranking-row {
+                grid-template-columns: 60px 1fr 100px;
+            }
+
+            .cases-solved {
+                display: none;
+            }
+
+            .cases-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            width: 40px;
+            height: 40px;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--bg-secondary);
+            border-radius: var(--border-radius-md);
+            cursor: pointer;
+        }
+
+        @media (max-width: 1024px) {
+            .mobile-menu-btn {
+                display: flex;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="app-logo">SYNERGY</div>
+            </div>
+
+            <nav class="nav-menu">
+                <div class="nav-item active" onclick="navigateTo('feed')">
+                    <span class="nav-icon">🏠</span>
+                    <span>Feed</span>
+                </div>
+                <div class="nav-item" onclick="navigateTo('cases')">
+                    <span class="nav-icon">📋</span>
+                    <span>Cases</span>
+                </div>
+                <div class="nav-item" onclick="navigateTo('ranking')">
+                    <span class="nav-icon">📊</span>
+                    <span>Ranking</span>
+                </div>
+                <div class="nav-item" onclick="navigateTo('network')">
+                    <span class="nav-icon">👥</span>
+                    <span>Network</span>
+                </div>
+                <div class="nav-item" onclick="navigateTo('profile')">
+                    <span class="nav-icon">👤</span>
+                    <span>Perfil</span>
+                </div>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="nav-item" onclick="logout()">
+                    <span class="nav-icon">🚪</span>
+                    <span>Sair</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Top Bar -->
+            <div class="top-bar">
+                <div class="d-flex align-center gap-md">
+                    <div class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</div>
+
+                    <div class="search-bar">
+                        <span class="search-icon">🔍</span>
+                        <input type="text" class="search-input" placeholder="Buscar pessoas, empresas, cases...">
+                    </div>
+                </div>
+
+                <div class="top-bar-actions">
+                    <button class="btn-icon notification-btn">
+                        <span>🔔</span>
+                        <span class="notification-badge">3</span>
+                    </button>
+
+                    <div class="user-profile-btn" onclick="navigateTo('profile')">
+                        <div class="avatar avatar-sm">
+                            <span>U</span>
+                        </div>
+                        <span id="userName">Usuário</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Feed View -->
+            <div id="feedView" class="content-view active">
+                <div class="feed-layout">
+                    <div class="feed-main">
+                        <!-- Create Post -->
+                        <div class="create-post">
+                            <div class="create-post-header">
+                                <div class="avatar">U</div>
+                                <div class="create-post-input" onclick="openCreatePostModal()">
+                                    O que você está pensando?
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Posts Feed -->
+                        <div id="postsContainer">
+                            <!-- Posts will be dynamically loaded here -->
+                        </div>
+                    </div>
+
+                    <!-- Feed Sidebar -->
+                    <div class="feed-sidebar">
+                        <div class="sidebar-content">
+                            <h3 class="sidebar-title">Sugestões para Seguir</h3>
+                            <div id="suggestedUsers">
+                                <!-- Suggested users will be loaded here -->
+                            </div>
+                        </div>
+
+                        <div class="sidebar-content">
+                            <h3 class="sidebar-title">Cases em Destaque</h3>
+                            <div id="featuredCases">
+                                <!-- Featured cases will be loaded here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cases View -->
+            <div id="casesView" class="content-view">
+                <div class="cases-header">
+                    <h1>Desafios e Cases</h1>
+                    <p class="text-secondary">Resolva cases, aprimore suas habilidades e ganhe pontos</p>
+                </div>
+
+                <div class="cases-filters">
+                    <button class="filter-btn active">Todos</button>
+                    <button class="filter-btn">Programação</button>
+                    <button class="filter-btn">Marketing</button>
+                    <button class="filter-btn">Design</button>
+                    <button class="filter-btn">Negócios</button>
+                    <button class="filter-btn">Dados</button>
+                </div>
+
+                <div class="cases-grid" id="casesContainer">
+                    <!-- Cases will be dynamically loaded here -->
+                </div>
+            </div>
+
+            <!-- Ranking View -->
+            <div id="rankingView" class="content-view">
+                <div class="cases-header">
+                    <h1>Ranking Global</h1>
+                    <p class="text-secondary">Veja os usuários com melhor desempenho</p>
+                </div>
+
+                <div class="ranking-table">
+                    <div class="ranking-row header">
+                        <div class="rank-position">#</div>
+                        <div>Usuário</div>
+                        <div class="text-center cases-solved">Cases</div>
+                        <div class="text-center">Pontos</div>
+                    </div>
+                    <div id="rankingContainer">
+                        <!-- Ranking will be dynamically loaded here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Network View -->
+            <div id="networkView" class="content-view">
+                <div class="cases-header">
+                    <h1>Minha Rede</h1>
+                    <p class="text-secondary">Gerencie suas conexões e encontre novos profissionais</p>
+                </div>
+
+                <div class="tabs mb-lg">
+                    <div class="tab active" onclick="switchNetworkTab('following')">Seguindo</div>
+                    <div class="tab" onclick="switchNetworkTab('followers')">Seguidores</div>
+                    <div class="tab" onclick="switchNetworkTab('suggestions')">Sugestões</div>
+                </div>
+
+                <div class="cases-grid" id="networkContainer">
+                    <!-- Network connections will be dynamically loaded here -->
+                </div>
+            </div>
+
+            <!-- Profile View -->
+            <div id="profileView" class="content-view">
+                <div class="profile-header">
+                    <div class="profile-info">
+                        <div class="avatar avatar-xl">U</div>
+                        <div>
+                            <h1 id="profileName">Usuário Demo</h1>
+                            <p id="profileEmail">usuario@email.com</p>
+                            <p id="profileDescription" class="mt-md">Desenvolvedor apaixonado por tecnologia e inovação.</p>
+                        </div>
+                    </div>
+
+                    <div class="profile-stats">
+                        <div class="stat-item">
+                            <div class="stat-value" id="profileScore">0</div>
+                            <div class="stat-label">Score Total</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value" id="profileCases">0</div>
+                            <div class="stat-label">Cases Resolvidos</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value" id="profileRanking">-</div>
+                            <div class="stat-label">Ranking Global</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value" id="profileConnections">0</div>
+                            <div class="stat-label">Conexões</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tabs mb-lg">
+                    <div class="tab active">Meus Posts</div>
+                    <div class="tab">Cases Resolvidos</div>
+                    <div class="tab">Conquistas</div>
+                </div>
+
+                <div id="profileContent">
+                    <!-- Profile content will be dynamically loaded here -->
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Create Post Modal -->
+    <div id="createPostModal" class="modal-overlay">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 class="modal-title">Criar Post</h2>
+                <span class="modal-close" onclick="closeCreatePostModal()">✕</span>
+            </div>
+            <div class="modal-body">
+                <form id="createPostForm" onsubmit="handleCreatePost(event)">
+                    <div class="input-group">
+                        <textarea
+                            id="postContent"
+                            class="input-field"
+                            rows="5"
+                            placeholder="Compartilhe suas ideias, conquistas ou insights..."
+                            required
+                        ></textarea>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" onclick="closeCreatePostModal()">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Publicar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Case Detail Modal -->
+    <div id="caseDetailModal" class="modal-overlay">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 class="modal-title" id="caseDetailTitle">Case Title</h2>
+                <span class="modal-close" onclick="closeCaseDetailModal()">✕</span>
+            </div>
+            <div class="modal-body">
+                <div id="caseDetailContent">
+                    <!-- Case details will be loaded here -->
+                </div>
+
+                <form id="caseSolutionForm" onsubmit="handleSubmitSolution(event)">
+                    <div class="input-group">
+                        <label class="input-label">Sua Solução</label>
+                        <textarea
+                            id="caseSolution"
+                            class="input-field"
+                            rows="6"
+                            placeholder="Digite sua solução aqui..."
+                            required
+                        ></textarea>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" onclick="closeCaseDetailModal()">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Enviar Solução</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/dashboard.js"></script>
+</body>
+</html>

@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Synergy - A rede social que une soft skills e hard skills">
+    <title>Synergy - Login</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/utilities.css">
+
+    <style>
+        .login-container {
+            min-height: 100vh;
+            display: flex;
+            background: linear-gradient(135deg, #054137 0%, #0a6a59 100%);
+        }
+
+        .login-left {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: var(--spacing-2xl);
+            color: var(--text-white);
+        }
+
+        .logo-section {
+            text-align: center;
+            margin-bottom: var(--spacing-3xl);
+        }
+
+        .logo {
+            font-size: 64px;
+            font-weight: var(--font-weight-bold);
+            margin-bottom: var(--spacing-md);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--spacing-md);
+        }
+
+        .logo-svg {
+            width: 80px;
+            height: 80px;
+            border-radius: var(--border-radius-md);
+            box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .logo-subtitle {
+            font-size: var(--font-size-xl);
+            opacity: 0.9;
+        }
+
+        .features-list {
+            max-width: 500px;
+            margin-top: var(--spacing-3xl);
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-lg);
+            font-size: var(--font-size-lg);
+        }
+
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: var(--font-size-2xl);
+        }
+
+        .login-right {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--bg-card);
+            padding: var(--spacing-2xl);
+        }
+
+        .login-form-container {
+            width: 100%;
+            max-width: 450px;
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: var(--spacing-2xl);
+        }
+
+        .login-title {
+            font-size: var(--font-size-3xl);
+            color: var(--primary-color);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .login-subtitle {
+            color: var(--text-secondary);
+            font-size: var(--font-size-md);
+        }
+
+        .form-divider {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+            margin: var(--spacing-lg) 0;
+        }
+
+        .form-divider::before,
+        .form-divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background-color: var(--border-color);
+        }
+
+        .form-divider span {
+            color: var(--text-secondary);
+            font-size: var(--font-size-sm);
+        }
+
+        .form-footer {
+            margin-top: var(--spacing-lg);
+            text-align: center;
+            color: var(--text-secondary);
+        }
+
+        .form-footer a {
+            color: var(--primary-color);
+            font-weight: var(--font-weight-semibold);
+        }
+
+        .form-footer a:hover {
+            text-decoration: underline;
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: var(--spacing-md);
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: var(--text-secondary);
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        @media (max-width: 1024px) {
+            .login-left {
+                display: none;
+            }
+
+            .login-right {
+                flex: none;
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .login-right {
+                padding: var(--spacing-lg);
+            }
+
+            .login-title {
+                font-size: var(--font-size-2xl);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <!-- Left Side - Branding -->
+        <div class="login-left">
+            <div class="logo-section">
+                <div class="logo">
+                    <span>Synergy</span>
+                    <img src="logo-synergy-green.svg" alt="Synergy Logo" class="logo-svg">
+                </div>
+                <p class="logo-subtitle">Conectando Talentos e Oportunidades</p>
+            </div>
+
+            <div class="features-list">
+                <div class="feature-item">
+                    <div class="feature-icon">💼</div>
+                    <div>
+                        <strong>Networking Profissional</strong><br>
+                        Conecte-se com empresas e profissionais
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🎯</div>
+                    <div>
+                        <strong>Desafios Práticos</strong><br>
+                        Resolva cases e aprimore suas habilidades
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">📊</div>
+                    <div>
+                        <strong>Rankings e Conquistas</strong><br>
+                        Destaque-se e seja notado por empresas
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Side - Login Form -->
+        <div class="login-right">
+            <div class="login-form-container">
+                <div class="login-header">
+                    <h1 class="login-title">Bem-vindo de volta!</h1>
+                    <p class="login-subtitle">Entre na sua conta para continuar</p>
+                </div>
+
+                <form id="loginForm" onsubmit="handleLogin(event)">
+                    <div class="input-group">
+                        <label class="input-label" for="email">Email</label>
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            class="input-field"
+                            placeholder="seu@email.com"
+                            required
+                        >
+                    </div>
+
+                    <div class="input-group">
+                        <label class="input-label" for="password">Senha</label>
+                        <div class="input-wrapper">
+                            <input
+                                type="password"
+                                id="password"
+                                name="password"
+                                class="input-field"
+                                placeholder="••••••••"
+                                required
+                            >
+                            <span class="password-toggle" onclick="togglePassword()">👁️</span>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-between align-center mb-lg">
+                        <label class="d-flex align-center gap-sm cursor-pointer">
+                            <input type="checkbox" name="remember">
+                            <span class="text-sm">Lembrar-me</span>
+                        </label>
+                        <a href="#" class="text-sm" style="color: var(--primary-color);">Esqueceu a senha?</a>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-full">
+                        Entrar
+                    </button>
+
+                    <div class="form-divider">
+                        <span>ou</span>
+                    </div>
+
+                    <button type="button" class="btn btn-secondary w-full" onclick="showRegisterModal()">
+                        Criar uma conta
+                    </button>
+                </form>
+
+                <div class="form-footer">
+                    <p>Ao continuar, você concorda com nossos <a href="#">Termos de Uso</a> e <a href="#">Política de Privacidade</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Registro -->
+    <div id="registerModal" class="modal-overlay">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 class="modal-title">Criar Conta</h2>
+                <span class="modal-close" onclick="closeRegisterModal()">✕</span>
+            </div>
+            <div class="modal-body">
+                <form id="registerForm" onsubmit="handleRegister(event)">
+                    <div class="tabs mb-lg">
+                        <div class="tab active" onclick="switchTab('user')">Usuário</div>
+                        <div class="tab" onclick="switchTab('company')">Empresa</div>
+                    </div>
+
+                    <div id="userFields">
+                        <div class="input-group">
+                            <label class="input-label">Nome Completo</label>
+                            <input type="text" class="input-field" placeholder="Seu nome" required>
+                        </div>
+                        <div class="input-group">
+                            <label class="input-label">CPF</label>
+                            <input type="text" class="input-field" placeholder="000.000.000-00" required>
+                        </div>
+                    </div>
+
+                    <div id="companyFields" class="d-none">
+                        <div class="input-group">
+                            <label class="input-label">Nome da Empresa</label>
+                            <input type="text" class="input-field" placeholder="Nome da empresa">
+                        </div>
+                        <div class="input-group">
+                            <label class="input-label">CNPJ</label>
+                            <input type="text" class="input-field" placeholder="00.000.000/0000-00">
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label class="input-label">Email</label>
+                        <input type="email" class="input-field" placeholder="seu@email.com" required>
+                    </div>
+                    <div class="input-group">
+                        <label class="input-label">Telefone</label>
+                        <input type="tel" class="input-field" placeholder="(00) 00000-0000" required>
+                    </div>
+                    <div class="input-group">
+                        <label class="input-label">Senha</label>
+                        <input type="password" class="input-field" placeholder="Mínimo 8 caracteres" required>
+                    </div>
+                    <div class="input-group">
+                        <label class="input-label">Descrição</label>
+                        <textarea class="input-field" rows="3" placeholder="Conte um pouco sobre você..."></textarea>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" onclick="closeRegisterModal()">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Criar Conta</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/auth.js"></script>
+</body>
+</html>
